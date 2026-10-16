@@ -1,0 +1,125 @@
+{
+  "model_commit": null,
+  "tasks": {
+    "dtd": {
+      "split_hashes": {
+        "adaptation": "eb567ddebdfcf90e",
+        "dev": "c81ef2cfffea5467",
+        "test": "5a6d3f259b4ff59e"
+      },
+      "sizes": {
+        "adaptation": 1880,
+        "dev": 1880,
+        "test": 1880
+      },
+      "classnames": [
+        "banded",
+        "blotchy",
+        "braided",
+        "bubbly",
+        "bumpy",
+        "chequered",
+        "cobwebbed",
+        "cracked",
+        "crosshatched",
+        "crystalline",
+        "dotted",
+        "fibrous",
+        "flecked",
+        "freckled",
+        "frilly",
+        "gauzy",
+        "grid",
+        "grooved",
+        "honeycombed",
+        "interlaced",
+        "knitted",
+        "lacelike",
+        "lined",
+        "marbled",
+        "matted",
+        "meshed",
+        "paisley",
+        "perforated",
+        "pitted",
+        "pleated",
+        "polka-dotted",
+        "porous",
+        "potholed",
+        "scaly",
+        "smeared",
+        "spiralled",
+        "sprinkled",
+        "stained",
+        "stratified",
+        "striped",
+        "studded",
+        "swirly",
+        "veined",
+        "waffled",
+        "woven",
+        "wrinkled",
+        "zigzagged"
+      ]
+    },
+    "eurosat": {
+      "split_hashes": {
+        "adaptation": "30ea6a8c69588738",
+        "dev": "6f492a739298608f",
+        "test": "90ff39a9c1097758"
+      },
+      "sizes": {
+        "adaptation": 16200,
+        "dev": 2700,
+        "test": 8100
+      },
+      "classnames": [
+        "annual crop land",
+        "forest",
+        "brushland or shrubland",
+        "highway or road",
+        "industrial buildings or commercial buildings",
+        "pasture land",
+        "permanent crop land",
+        "residential buildings or homes or apartments",
+        "river",
+        "lake or sea"
+      ]
+    }
+  },
+  "env": {
+    "python": "3.13.15",
+    "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+    "torch": "2.11.0+cu130",
+    "torchvision": "0.26.0+cu130",
+    "transformers": "5.18.0",
+    "cuda": "13.0",
+    "gpu": "Tesla T4",
+    "git_commit": null
+  },
+  "device": "cuda",
+  "wall_clock_s": 380.9,
+  "global_seed": 1234,
+  "preprocessing": {
+    "resize": 224,
+    "interpolation": "bicubic",
+    "center_crop": 224,
+    "normalize_mean": [
+      0.48145466,
+      0.4578275,
+      0.40821073
+    ],
+    "normalize_std": [
+      0.26862954,
+      0.26130258,
+      0.27577711
+    ],
+    "train_augmentation": "none_for_baseline"
+  },
+  "protocol_version": "1.0",
+  "pools_evaluated": [
+    "dev",
+    "test"
+  ],
+  "rerun_predictions_identical": true
+}

@@ -1,0 +1,9 @@
+dataset,pool,prompt_mode,n,top1,mean_per_class_acc,split_hash,model_id,model_commit
+dtd,dev,template_ensemble,1880,0.448936,0.448936,c81ef2cfffea5467,openai/clip-vit-base-patch16,
+dtd,test,template_ensemble,1880,0.446809,0.446809,5a6d3f259b4ff59e,openai/clip-vit-base-patch16,
+dtd,dev,single_template,1880,0.433511,0.433511,c81ef2cfffea5467,openai/clip-vit-base-patch16,
+dtd,test,single_template,1880,0.428723,0.428723,5a6d3f259b4ff59e,openai/clip-vit-base-patch16,
+eurosat,dev,template_ensemble,2700,0.545926,0.543167,6f492a739298608f,openai/clip-vit-base-patch16,
+eurosat,test,template_ensemble,8100,0.555556,0.553811,90ff39a9c1097758,openai/clip-vit-base-patch16,
+eurosat,dev,single_template,2700,0.545556,0.5447,6f492a739298608f,openai/clip-vit-base-patch16,
+eurosat,test,single_template,8100,0.554691,0.554344,90ff39a9c1097758,openai/clip-vit-base-patch16,

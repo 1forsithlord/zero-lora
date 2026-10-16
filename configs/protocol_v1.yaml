@@ -1,0 +1,64 @@
+# Zero-LoRA data protocol v1 -- DRAFT for team sign-off (Day 4). Freeze = tag the commit, then no edits without a changelog entry.
+protocol_version: "1.0"
+base_model:
+  family: CLIP ViT-B/16
+  hf_id: openai/clip-vit-base-patch16
+  revision: c047d4b4f38074b60407b88e5f0a1c76c7148bb3        # filled automatically by scripts/run_frozen_eval.py (config._commit_hash); then pin it here
+global_seed: 1234         # used for split construction (never changes within protocol v1)
+run_seeds: [0, 1, 2]      # training seeds; start with 0 only until Phase 3 passes
+
+preprocessing:
+  resize: 224
+  interpolation: bicubic
+  center_crop: 224
+  normalize_mean: [0.48145466, 0.4578275, 0.40821073]
+  normalize_std:  [0.26862954, 0.26130258, 0.27577711]
+  train_augmentation: none_for_baseline   # decide in Phase 2; record here
+
+pools:
+  # Four disjoint roles. A sample (by content hash) may belong to exactly one role.
+  adaptation:   "task-train split; used only to fit LoRA parameters"
+  dev:          "task-val split + ZS-dev datasets; used for lambda, lr, early stopping, hyperparameters"
+  test:         "task-test split + ZS-test datasets; evaluated once per final configuration; never used for any choice"
+  reference:    "CC3M subset (5-10k pairs, time-boxed 2-3 days); used only inside the preservation losses"
+
+tasks:
+  dtd:
+    source: torchvision.datasets.DTD
+    partition: 1                       # official partition 1 of 10
+    adaptation: train                  # 1880 imgs
+    dev: val                           # 1880 imgs
+    test: test                         # 1880 imgs
+  eurosat:
+    source: torchvision.datasets.EuroSAT   # RGB version, 27000 imgs, 10 classes, no official split
+    split_method: stratified_seeded
+    fractions: {adaptation: 0.60, dev: 0.10, test: 0.30}
+    # 16200 / 2700 / 8100 (rounded per class)
+  # Phase 4 candidates (add only after Gate 2): flowers102, pets, food101, aircraft (see compute timing)
+
+zero_shot_probes:
+  # Datasets NOT used for adaptation in the run being evaluated. Retention is measured here.
+  # Roles are disjoint: a probe dataset used for ZS-dev is not used for ZS-test.
+  zs_dev:  [caltech101, oxford_pets]       # TBD by team; used for lambda selection
+  zs_test: [cifar100, food101]             # TBD by team; touched once
+  note: "Probe lists are proposals. When a probe dataset is also a task in a later experiment, retention on it is reported under that experiment's own roles."
+
+prompts:
+  mode_primary: template_ensemble   # mean of normalized text embeddings over templates, renormalized
+  mode_secondary: single_template   # first template only; reported alongside
+  source: "openai/CLIP data/prompts.md (verified 2026-10-16)"
+  frozen: true
+
+reference_pool:
+  source: CC3M
+  size_target: 5000-10000
+  time_box_days: 3
+  filters: [dedup_exact_hash, dedup_near_phash, corrupt_image_drop, class_name_caption_filter, nsfw_drop_if_available]
+  disjoint_from: [all_adaptation, all_dev, all_test, all_zs_probes]
+
+logging_required_per_run:
+  - python, torch, torchvision, transformers, peft versions; CUDA; GPU name
+  - HF model id + commit hash
+  - preprocessing block above (verbatim)
+  - dataset version / download source / file-list hash / split-index hash
+  - all seeds; full config; git commit; wall-clock; peak GPU memory

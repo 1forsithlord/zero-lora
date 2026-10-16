@@ -1,0 +1,11 @@
+# Pin exact versions after the first successful run (copy from results/run_manifest.json).
+torch==2.11.0+cu130
+torchvision==0.26.0+cu130
+transformers==5.18.0
+numpy
+pyyaml
+pandas
+scipy
+pillow
+# Phase 2+: peft
+# Phase 8: streamlit
