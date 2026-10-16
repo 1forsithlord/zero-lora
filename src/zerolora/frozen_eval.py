@@ -79,7 +79,7 @@ def run_once(cfg, root, device, batch_size, num_workers, eval_pools):
     rev = cfg["base_model"].get("revision")
     model = CLIPModel.from_pretrained(mid, revision=rev).to(device).eval()
     tok = CLIPTokenizer.from_pretrained(mid, revision=rev)
-    commit = getattr(model.config, "_commit_hash", None)
+    commit = rev if rev else getattr(model.config, "_commit_hash", None)
     tf = build_transform(cfg["preprocessing"])
     rows, preds_all, meta = [], {}, {"model_commit": commit, "tasks": {}}
 
