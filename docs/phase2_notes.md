@@ -33,3 +33,14 @@
 - Reference pool: source is the `pixparse/cc3m-wds` mirror (images included), not the dead-prone URL list; caption filtering is **Porter-stem phrase matching** (deterministic, no downloads, conservative superset of lemma matching) with EuroSAT "a or b or c" class names split into separate phrases; probe class names are **flagged, not removed**, by default (`--probe-classname-mode remove` to enforce). Images stored as JPEG q95, shorter side <= 256.
 - Near-duplicate check is pHash (Hamming <= 6) against DTD (all 3 splits), EuroSAT (all), Caltech101, Oxford Pets, CIFAR-100, Food-101 (all splits). pHash misses crops, heavy edits and re-photographs; state this limitation.
 - NSFW: the mirror provides a flag only if present in the shard JSON; the manifest counts `nsfw_field_missing`. If it is always missing, the paper must say NSFW filtering was not performed.
+
+## Pilot Run Findings (Phase 2B)
+A 30-step pilot run on DTD (rank 4, batch 32, reference batch 64) revealed the following loss magnitudes:
+*   `l_task` (cross-entropy) oscillates around **2.0**.
+*   `raw_frobenius` (`lambda=1e-3`) grows to **~0.0008** by step 30.
+*   `gnsp_cd` (`lambda=1.0`) grows to **~0.033** by step 30.
+
+**Implication for Phase 3:** The initial lambda values were too small; the preservation loss was easily ignored by the optimizer. Phase 3 hyperparameter grids must be scaled up:
+*   **Raw Frobenius grid:** `[0.0, 0.1, 1.0, 10.0]`
+*   **GNSP/ZSCL grid:** `[0.0, 10.0, 100.0, 1000.0]`
+*(Note: ZSCL and GNSP are mathematically equivalent optimizers; Phase 3 will compare `raw` against `gnsp` to save compute, as justified in finding 1 above).*
