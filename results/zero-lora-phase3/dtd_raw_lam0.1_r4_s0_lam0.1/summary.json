@@ -1,0 +1,87 @@
+{
+  "config": {
+    "task": "dtd",
+    "loss": "raw",
+    "lam": 0.1,
+    "rank": 4,
+    "alpha": 8.0,
+    "epochs": 3,
+    "lr": 0.0001,
+    "weight_decay": 0.0,
+    "seed": 0,
+    "batch_size": 32,
+    "ref_batch_size": 64,
+    "force_ref": false,
+    "max_steps": 0,
+    "log_every": 10,
+    "eval_every": 1
+  },
+  "steps": 177,
+  "epochs_run": 3,
+  "frozen": {
+    "dev_task_acc": 0.44893617021276594,
+    "zs": {
+      "caltech101": 0.898,
+      "oxford_pets": 0.8885
+    },
+    "zs_mean": 0.89325
+  },
+  "final": {
+    "dev_task_acc": 0.5930851063829787,
+    "zs": {
+      "caltech101": 0.8975,
+      "oxford_pets": 0.886
+    },
+    "zs_mean": 0.89175
+  },
+  "delta_dev_task_acc": 0.1441489361702128,
+  "delta_zs": {
+    "caltech101": -0.000500000000000056,
+    "oxford_pets": -0.0024999999999999467
+  },
+  "delta_zs_mean": -0.0014999999999999458,
+  "retention_ratio_zs_mean": 0.9983207388748951,
+  "train_time_s": 633.48,
+  "samples_per_s": 8.9,
+  "peak_gpu_mem_mb": 12720.1,
+  "trainable_params": 147456,
+  "adapter_bytes": 606035,
+  "logit_scale": 100.0,
+  "used_reference_path": true,
+  "run_id": "dtd_raw_lam0.1_r4_s0_lam0.1",
+  "env": {
+    "python": "3.13.15",
+    "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+    "torch": "2.11.0+cu130",
+    "torchvision": "0.26.0+cu130",
+    "transformers": "5.18.0",
+    "cuda": "13.0",
+    "gpu": "Tesla T4",
+    "git_commit": "4627590165a4517b959aafd3c04a83cf61f6a34b"
+  },
+  "model_commit": "c047d4b4f38074b60407b88e5f0a1c76c7148bb3",
+  "pool_hash": "2fecd21c799ca2cd51c0ac200c3066974a3d5372eda68c0c0dd19f45e0eab770",
+  "split_hashes": {
+    "adaptation": "eb567ddebdfcf90e",
+    "dev": "c81ef2cfffea5467",
+    "test": "5a6d3f259b4ff59e"
+  },
+  "split_sizes": {
+    "adaptation": 1880,
+    "dev": 1880,
+    "test": 1880
+  },
+  "probes": {
+    "caltech101": {
+      "n": 2000,
+      "hash": "9f16e44f0fd90af1"
+    },
+    "oxford_pets": {
+      "n": 2000,
+      "hash": "56b3750c36d73542"
+    }
+  },
+  "device": "cuda",
+  "test_pool_evaluated": false,
+  "zs_test_probes_evaluated": false
+}
